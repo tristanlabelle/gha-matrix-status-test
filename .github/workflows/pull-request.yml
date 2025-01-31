@@ -26,6 +26,7 @@ jobs:
     name: Print Result
     needs: [matrixed_job]
     runs-on: ubuntu-latest
+    if: always()
     steps:
       - name: Print Result
         run: |
