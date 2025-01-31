@@ -1,0 +1,27 @@
+name: Pull Request - Validation
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  matrixed_job:
+    name: Matrixed Job
+    uses: ./.github/workflows/callable.yml
+    strategy:
+      matrix:
+        include:
+          - sleep-secs: 0
+            exit-code: 1
+          - sleep-secs: 10
+            exit-code: 0
+
+  print-result:
+    name: Print Result
+    needs: [matrixed_job]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Result
+        run: |
+          echo "Matrixed Job Result: ${{ needs.matrixed_job.result }}"

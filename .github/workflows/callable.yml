@@ -1,0 +1,23 @@
+name: Callable
+
+on:
+  workflow_call:
+    inputs:
+      sleep-secs:
+        type: number
+        required: true
+      exit-code:
+        type: number
+        required: true
+
+jobs:
+  callable:
+    name: Callable
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Result
+        run: |
+          echo "Sleeping for ${{ inputs.sleep-secs }} seconds..."
+          sleep ${{ inputs.sleep-secs }}
+          echo "Exiting with code ${{ inputs.exit-code }}"
+          exit ${{ inputs.exit-code }}
